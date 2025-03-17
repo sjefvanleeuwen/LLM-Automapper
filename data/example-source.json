@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "customerInfo": {
+      "customerId": "string",
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string",
+      "phoneNumber": "string",
+      "address": {
+        "street": "string",
+        "city": "string",
+        "state": "string",
+        "zip": "string",
+        "country": "string"
+      }
+    },
+    "orderDetails": {
+      "orderId": "string",
+      "orderDate": "date",
+      "items": [
+        {
+          "productId": "string",
+          "productName": "string",
+          "quantity": "number",
+          "unitPrice": "number"
+        }
+      ],
+      "totalAmount": "number",
+      "paymentMethod": "string"
+    }
+  },
+  "notes": "This schema represents customer order data from our e-commerce platform."
+}

@@ -1,0 +1,32 @@
+Customer Information System - Data Structure Description
+
+We need to store the following information about our customers:
+
+Customer ID: A unique alphanumeric identifier for each customer
+Name: Customer's full name, which should be split into first name and last name
+Email Address: Customer's primary email contact
+Phone Number: Customer's contact phone number
+Status: Active or Inactive
+Registration Date: When the customer first registered with our system
+
+Address Information:
+- Street Address: The street number and name
+- City: The city name
+- State/Province: State or province code
+- Postal Code: ZIP or postal code
+- Country: Country name or code
+
+Purchase History:
+Each customer can have multiple purchases with the following details:
+- Purchase ID: Unique identifier for each purchase
+- Date: When the purchase was made
+- Total Amount: The total amount of the purchase
+- Payment Method: Credit card, PayPal, etc.
+- Items: A list of items purchased, each with:
+  * Product ID
+  * Product Name
+  * Quantity
+  * Unit Price
+
+We need to be able to track customer preferences and marketing opt-ins as boolean flags.
+The system should also maintain a log of customer interactions for support purposes.

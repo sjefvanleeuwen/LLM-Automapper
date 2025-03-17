@@ -1,0 +1,21 @@
+{
+  "name": "rag3-data-mapper",
+  "version": "1.0.0",
+  "description": "Data mapping tool using Ollama (Llama3 and embeddings) to map between data structures",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "load": "node index.js load",
+    "map": "node index.js map",
+    "analyze": "node index.js analyze",
+    "query": "node index.js query"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.9"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

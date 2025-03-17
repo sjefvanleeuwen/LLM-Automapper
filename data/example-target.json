@@ -1,0 +1,37 @@
+{
+  "schema": {
+    "client": {
+      "id": "string",
+      "name": {
+        "first": "string",
+        "last": "string"
+      },
+      "contactInfo": {
+        "emailAddress": "string",
+        "phone": "string",
+        "mailingAddress": {
+          "addressLine1": "string",
+          "city": "string",
+          "stateProvince": "string",
+          "postalCode": "string",
+          "countryRegion": "string"
+        }
+      }
+    },
+    "purchase": {
+      "purchaseId": "string",
+      "purchaseTimestamp": "date",
+      "products": [
+        {
+          "id": "string",
+          "description": "string",
+          "count": "number",
+          "price": "number"
+        }
+      ],
+      "purchaseTotal": "number",
+      "paymentType": "string"
+    }
+  },
+  "notes": "This schema is for our internal CRM system to track customer purchases."
+}
