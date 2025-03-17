@@ -148,6 +148,170 @@ CreateMap<SourceCustomer, TargetClient>()
 5. **AI Code Generation**: The LLM generates complete, customized AutoMapper code
 6. **Field Confidence**: Each mapping includes a confidence score to identify uncertain matches
 
+## Example Session
+
+```
+S C:\source\RAG3> npm run map -- ./data/example-source.json ./data/example-target.json
+
+> rag3-data-mapper@1.0.0 map
+> node index.js map ./data/example-source.json ./data/example-target.json
+
+Mapping data from ./data/example-source.json to ./data/example-target.json...
+(node:90456) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Loaded 4 embedded structures from cache
+Enriching mapping with knowledge from vector database...
+Found 3 relevant documents for source and 3 for target
+Found 6 relevant fields for source and 6 for target
+
+Field Mappings:
+  customerInfo.customerId -> purchase.purchaseId (confidence: 0.81)
+  customerInfo.firstName -> client.name.first (confidence: 0.84)
+  customerInfo.lastName -> client.name.last (confidence: 0.83)
+  customerInfo.email -> client.contactInfo.emailAddress (confidence: 0.84)
+  customerInfo.phoneNumber -> client.contactInfo.phone (confidence: 0.84)
+  customerInfo.address.street -> client.contactInfo.phone (confidence: 0.76)
+  customerInfo.address.city -> client.contactInfo.mailingAddress.city (confidence: 0.89)
+  customerInfo.address.state -> client.contactInfo.mailingAddress.stateProvince (confidence: 0.83)
+  customerInfo.address.zip -> client.contactInfo.mailingAddress.postalCode (confidence: 0.75)
+  customerInfo.address.country -> client.contactInfo.mailingAddress.countryRegion (confidence: 0.85)
+  orderDetails.orderId -> purchase.purchaseId (confidence: 0.69)
+  orderDetails.orderDate -> purchase.purchaseTimestamp (confidence: 0.75)
+  orderDetails.items -> purchase.products (confidence: 0.79)
+  orderDetails.items[0].productId -> purchase.products[0].id (confidence: 0.83)
+  orderDetails.items[0].productName -> purchase.products[0].description (confidence: 0.84)
+  orderDetails.items[0].quantity -> purchase.products[0].count (confidence: 0.77)
+  orderDetails.items[0].unitPrice -> purchase.products[0].price (confidence: 0.80)
+  orderDetails.totalAmount -> purchase.purchaseTotal (confidence: 0.72)
+  orderDetails.paymentMethod -> purchase.paymentType (confidence: 0.81)
+
+Enrichment from Vector Database:
+  Source-related documents:
+    - example-source.json (relevance: 0.99)
+    - example-target.json (relevance: 0.90)
+    - example-description.txt (relevance: 0.73)
+  Target-related documents:
+    - example-target.json (relevance: 0.98)
+    - example-source.json (relevance: 0.88)
+    - example-description.txt (relevance: 0.66)
+
+Generated C# AutoMapper Code:
+Here is the complete C# solution:
+
+```csharp
+using System;
+using AutoMapper;
+
+public class CustomerInfo
+{
+    public string customerId { get; set; }
+    public string firstName { get; set; }
+    public string lastName { get; set; }
+    public string email { get; set; }
+    public string phoneNumber { get; set; }
+    public Address address { get; set; }
+}
+
+public class OrderDetails
+{
+    public string orderId { get; set; }
+    public DateTime orderDate { get; set; }
+    public List<OrderItem> items { get; set; }
+    public decimal totalAmount { get; set; }
+    public string paymentMethod { get; set; }
+}
+
+public class OrderItem
+{
+    public string productId { get; set; }
+    public string productName { get; set; }
+    public int quantity { get; set; }
+    public decimal unitPrice { get; set; }
+}
+
+public class Address
+{
+    public string street { get; set; }
+    public string city { get; set; }
+    public string state { get; set; }
+    public string zip { get; set; }
+    public string country { get; set; }
+}
+
+public class ClientContactInfo
+{
+    public string emailAddress { get; set; }
+    public string phone { get; set; }
+    public MailingAddress mailingAddress { get; set; }
+}
+
+public class MailingAddress
+{
+    public string addressLine1 { get; set; }
+    public string city { get; set; }
+    public string stateProvince { get; set; }
+    public string postalCode { get; set; }
+    public string countryRegion { get; set; }
+}
+
+public class ClientPurchase
+{
+    public string purchaseId { get; set; }
+    public DateTime purchaseTimestamp { get; set; }
+    public List<Product> products { get; set; }
+    public decimal purchaseTotal { get; set; }
+    public string paymentType { get; set; }
+}
+
+public class Product
+{
+    public string id { get; set; }
+    public string description { get; set; }
+    public int count { get; set; }
+    public decimal price { get; set; }
+}
+
+// AutoMapper Profile
+public class CustomerInfoMapperProfile : Profile
+{
+    public CustomerInfoMapperProfile()
+    {
+        CreateMap<CustomerInfo, Client>();
+        CreateMap<OrderDetails, Purchase>();
+        CreateMap<OrderItem, Product>();
+    }
+}
+
+// Sample Usage
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Create the AutoMapper instance
+        var config = new MapperConfiguration(cfg => cfg.AddProfile<CustomerInfoMapperProfile>());
+        var mapper = new Mapper(config);
+
+        // Map CustomerInfo to Client
+        CustomerInfo customerInfo = new CustomerInfo();
+        client client = mapper.Map<Client>(customerInfo);
+
+        // Map OrderDetails to Purchase
+        OrderDetails orderDetails = new OrderDetails();
+        Purchase purchase = mapper.Map<Purchase>(orderDetails);
+
+        // Map OrderItem to Product
+        OrderItem orderItem = new OrderItem();
+        Product product = mapper.Map<Product>(orderItem);
+    }
+}
+```
+
+The above code generates the necessary classes for both the source and target structures, defines an AutoMapper profile class that configures the mappings, includes a sample implementation showing how to use the mapper, handles nested objects and arrays properly, includes any necessary type conversions, and returns the complete C# solution including necessary using statements.
+
+C# AutoMapper code saved to data\Mappingexample-sourceToexample-target.cs
+```
+
+
 ## License
 
 MIT
